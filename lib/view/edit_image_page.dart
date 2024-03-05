@@ -49,7 +49,7 @@ class _EditImagePageState extends State<EditImagePage> {
     });
   }
 
-// Method to fetch adjustments for the selected project name
+
   Future<void> fetchAdjustments(String projectName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? tuneControllerJson = prefs.getString('$projectName-tuneController');
@@ -59,12 +59,10 @@ class _EditImagePageState extends State<EditImagePage> {
       double saturation = tuneControllerData['saturation'] ?? 1.0;
       double brightness = tuneControllerData['brightness'] ?? 1.0;
 
-      // Apply adjustments to the TuneController
       _tuneController.adjustContrast(contrast);
       _tuneController.adjustSaturation(saturation);
       _tuneController.adjustBrightness(brightness);
 
-      // Update the edited image with adjusted values
       setState(() {
         _editedImage = _applyAdjustments(_originalImage.clone());
       });
@@ -84,7 +82,7 @@ class _EditImagePageState extends State<EditImagePage> {
             onPressed: () async {
               String savedPath = await _saveImageController.saveProject(
                 img.encodePng(_editedImage!),
-                widget.image.path, // Pass the image path here
+                widget.image.path, 
                 _tuneController,
               );
 
